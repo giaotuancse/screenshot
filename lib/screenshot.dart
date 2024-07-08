@@ -147,7 +147,7 @@ class ScreenshotController {
     final platformDispatcher = WidgetsBinding.instance.platformDispatcher;
     final fallBackView = platformDispatcher.views.first;
     final view =
-        context == null ? fallBackView : View.maybeOf(context) ?? fallBackView;
+        context == null ? fallBackView : fallBackView;
     Size logicalSize =
         targetSize ?? view.physicalSize / view.devicePixelRatio; // Adapted
     Size imageSize = targetSize ?? view.physicalSize; // Adapted
@@ -157,15 +157,15 @@ class ScreenshotController {
             .toStringAsPrecision(5)); // Adapted (toPrecision was not available)
 
     final RenderView renderView = RenderView(
-      view: view,
+      window: view,
       child: RenderPositionedBox(
           alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
-        // size: logicalSize,
-        logicalConstraints: BoxConstraints(
-          maxWidth: logicalSize.width,
-          maxHeight: logicalSize.height,
-        ),
+        size: logicalSize,
+        // logicalConstraints: BoxConstraints(
+        //   maxWidth: logicalSize.width,
+        //   maxHeight: logicalSize.height,
+        // ),
         devicePixelRatio: pixelRatio ?? 1.0,
       ),
     );
