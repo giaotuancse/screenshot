@@ -304,6 +304,7 @@ class ScreenshotController {
       BuildContext? context,
       BoxConstraints constraints = const BoxConstraints(
         maxHeight: double.maxFinite,
+        maxWidth: double.maxFinite,
       )}) async {
     final PipelineOwner pipelineOwner = PipelineOwner();
     final _MeasurementView rootView =
