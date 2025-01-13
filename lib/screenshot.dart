@@ -157,17 +157,17 @@ class ScreenshotController {
             .toStringAsPrecision(5)); // Adapted (toPrecision was not available)
 
     final RenderView renderView = RenderView(
-      window: view,
       child: RenderPositionedBox(
           alignment: Alignment.center, child: repaintBoundary),
       configuration: ViewConfiguration(
-        size: logicalSize,
+        physicalConstraints: BoxConstraints.tight(logicalSize) * view.devicePixelRatio,
+        logicalConstraints: BoxConstraints.tight(logicalSize),
         // logicalConstraints: BoxConstraints(
         //   maxWidth: logicalSize.width,
         //   maxHeight: logicalSize.height,
         // ),
         devicePixelRatio: pixelRatio ?? 1.0,
-      ),
+      ), view: view,
     );
 
     final PipelineOwner pipelineOwner = PipelineOwner();
